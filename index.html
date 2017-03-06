@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    /* dla uproszczenia style w head */
+    body {
+      text-transform: uppercase;
+      background-color: darkolivegreen;
+      color: burlywood;
+      font-family: Calibri;
+      font-size: 20px;
+      padding-left: 50px;
+    }
+    ul li {
+      cursor: pointer;
+    }
+    #closeBtn {
+      display: inline-block;
+      margin-left: 20px;
+      cursor: pointer;
+    }
+    h1 {
+      max-width: 50%;
+    }
+  </style>
+</head>
+<body>
+<div>
+  <h1>Aplikacja CRUD - umożliwia wyświetlanie, dodawanie, edytowanie i usuwanie elementów. </h1>
+<ul id="list">
+
+</ul>
+  <input type="text" id="addInput">
+  <button id="addBtn">Add</button>
+  <script>
+_ = function (id) {
+    return document.getElementById(id);
+};
+var app = {
+    countries: [],
+
+    displayItem: function () {
+        var data = "";
+        if (this.countries.length > 0){
+            data = "Twoja lista zadań jest pusta! Dodaj coś";
+        }
+
+        for (var i = 0; i < this.countries.length; i++) {
+            data += '<li id=' + i +'>' + this.countries[i] + '</li>';
+        }
+        _('list').innerHTML = data;
+
+    },
+
+    addItem: function () {
+        var newCountry = document.createElement('li');
+        newCountry.innerHTML = _('addInput').value;
+        _('list').appendChild(newCountry);
+        _('addInput').value = "";
+    },
+
+    editItem: function (e) {
+      //dodaj input
+        //jeśli element nie ma inputa to dodaj
+        if (e.target.childNodes.length === 2) {
+            var editInput = document.createElement('input');
+            editInput.placeholder = 'edytuj';
+            editInput.id = 'editInput';
+            var editSubmit = document.createElement('button');
+            //stwórz btn do potwierdzenia zmian
+            editSubmit.innerHTML = "Edytuj";
+            editSubmit.id = 'editSubmit';
+            var elementToErase = document.getElementById(e.target.id);
+            elementToErase.appendChild(editInput);
+            elementToErase.appendChild(editSubmit);
+            //pobierz wartość inputa i wrzuć ją do elementu
+            editSubmit.addEventListener('click', function () {
+                e.target.innerHTML = editInput.value;
+            });
+        } else {
+            //usuń input
+
+        }
+
+    },
+
+    deleteItem: function (e) {
+        if (e.target.childNodes.length <= 1){
+            var closeBtn = document.createElement('button');
+            closeBtn.innerHTML = 'X';
+            closeBtn.id = 'closeBtn';
+            var elementToErase = _(e.target.id);
+            elementToErase.appendChild(closeBtn);
+
+            eraseElement = function () {
+                if (e.target && e.target.nodeName === "LI") {
+                    //dodaj zamykaczkę
+                    var parent = elementToErase.parentNode;
+                    parent.removeChild(elementToErase);
+
+                }
+            };
+            _('closeBtn').addEventListener('click', eraseElement);
+        }
+      //dodaj zamykaczkę
+
+
+    }
+
+};
+//TODO
+//input może dodawać się tylko raz dla danego elementu
+//delete button może raz się dodawać
+
+app.displayItem();
+//event listeners
+    _('addBtn').addEventListener('click', app.addItem);
+    _('list').addEventListener('click', app.deleteItem);
+    _('list').addEventListener('click', app.editItem);
+  </script>
+</div>
+</body>
+</html>
