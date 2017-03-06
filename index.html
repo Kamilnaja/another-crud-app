@@ -42,7 +42,7 @@ _ = function (id) {
     return document.getElementById(id);
 };
 var app = {
-    countries: [],
+    countries: ['1', '2', '3'],
 
     displayItem: function () {
         var data = "";
@@ -51,7 +51,7 @@ var app = {
         }
 
         for (var i = 0; i < this.countries.length; i++) {
-            data += '<li id=' + i +'>' + this.countries[i] + '</li>';
+            data += '<li id=' + this.countries[i] +'>' + this.countries[i] + '</li>';
         }
         _('list').innerHTML = data;
 
@@ -60,6 +60,7 @@ var app = {
     addItem: function () {
         var newCountry = document.createElement('li');
         newCountry.innerHTML = _('addInput').value;
+        newCountry.id = newCountry.innerHTML;
         _('list').appendChild(newCountry);
         _('addInput').value = "";
     },
