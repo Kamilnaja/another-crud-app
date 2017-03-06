@@ -42,26 +42,23 @@ _ = function (id) {
     return document.getElementById(id);
 };
 var app = {
-    countries: ['1', '2', '3'],
+    items: ['1', '2', '3'],
 
     displayItem: function () {
         var data = "";
-        if (this.countries.length > 0){
-            data = "Twoja lista zadań jest pusta! Dodaj coś";
-        }
 
-        for (var i = 0; i < this.countries.length; i++) {
-            data += '<li id=' + this.countries[i] +'>' + this.countries[i] + '</li>';
+        for (var i = 0; i < this.items.length; i++) {
+            data += '<li id=' + this.items[i] +'>' + this.items[i] + '</li>';
         }
         _('list').innerHTML = data;
 
     },
 
     addItem: function () {
-        var newCountry = document.createElement('li');
-        newCountry.innerHTML = _('addInput').value;
-        newCountry.id = newCountry.innerHTML;
-        _('list').appendChild(newCountry);
+        var newItem = document.createElement('li');
+        newItem.innerHTML = _('addInput').value;
+        newItem.id = newItem.innerHTML;
+        _('list').appendChild(newItem);
         _('addInput').value = "";
     },
 
