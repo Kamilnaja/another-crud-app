@@ -78,17 +78,20 @@
           },
 
           editItem: function (e) {
+              e.stopPropagation();
               var editor = e.target;
               //wyłącz przycisk edit
               //dodaj input
               //jeśli element nie ma inputa to dodaj
-              function checkAndEdit () {
+              function checkAndEdit (event) {
                   if (editInput.value.length !== 0) {
+                      console.log(e.target.id);
                       e.target.innerHTML = editInput.value;
                   } else {
                       console.log("wpisz coś");
                   }
                   //można dodawać następne EL
+                  event.stopPropagation();
               }
               var editInput = document.createElement('input');
               editInput.placeholder = 'edytuj';
