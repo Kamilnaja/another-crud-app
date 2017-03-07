@@ -19,6 +19,10 @@
     ul li {
       cursor: pointer;
     }
+    li {
+      padding: 10px 20px;
+      border: 1px dashed white;
+    }
     #closeBtn {
       display: inline-block;
       margin-left: 20px;
@@ -27,104 +31,104 @@
     h1 {
       max-width: 50%;
     }
+    .item {
+      padding-left: 10px;
+      padding-right: 20px;
+    }
   </style>
 </head>
 <body>
-<div>
   <h1>Aplikacja CRUD - umożliwia wyświetlanie, dodawanie, edytowanie i usuwanie elementów. </h1>
 <ul id="list">
 
 </ul>
-  <input type="text" id="addInput">
   <button id="addBtn">Add</button>
+
+  <input type="text" id="addInput">
+  <script
+      src="https://code.jquery.com/jquery-3.1.1.min.js"
+      integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+      crossorigin="anonymous"></script>
   <script>
-_ = function (id) {
-    return document.getElementById(id);
-};
-function insertAfter(referenceNode, newNode) {
-    referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
-}
-var app = {
-    items: ['1', '2', '3'],
+      _ = function (id) {
+          return document.getElementById(id);
+      };
+      function insertAfter(referenceNode, newNode) {
+          referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+      }
+      var app = {
+          items: ['1', '2', '3'],
+          //status open gdy user wpisuje coś do formularza
+          isOpen:  false,
+          displayItem: function () {
+              var data = "";
+              for (var i = 0; i < this.items.length; i++) {
+                  data += '<li id=' + this.items[i] + '><span class="item">' + this.items[i] + '</span></li>';
+              }
+              _('list').innerHTML = data;
+          },
 
-    displayItem: function () {
-        var data = "";
+          addItem: function () {
+              var newItem = document.createElement('li');
+              newItem.innerHTML = _('addInput').value;
+              newItem.id = newItem.innerHTML;
+              _('list').appendChild(newItem);
+              _('addInput').value = "";
+          },
 
-        for (var i = 0; i < this.items.length; i++) {
-            data += '<li id=' + this.items[i] +'>' + this.items[i] + '</li>';
-        }
-        _('list').innerHTML = data;
-    },
+          editItem: function (e) {
+              //wyłącz przycisk edit
+              //dodaj input
+              //jeśli element nie ma inputa to dodaj
+              function checkAndEdit () {
+                  if (editInput.value.length !== 0) {
+                      e.target.innerHTML = editInput.value;
+                  } else {
+                      console.log("wpisz coś");
+                  }
+                  console.log(app.isOpen);
+                  app.isOpen = false;
+                  //można dodawać następne EL
+              }
+              var editInput = document.createElement('input');
+              editInput.placeholder = 'edytuj';
+              editInput.id = 'editInput';
+              var editSubmit = document.createElement('button');
+              //stwórz btn do potwierdzenia zmian
+              editSubmit.innerHTML = "Edytuj";
+              editSubmit.id = 'editSubmit';
+              var elementToEdit = _(e.target.id);
+                  elementToEdit.appendChild(editInput);
+                  elementToEdit.appendChild(editSubmit);
+                      _('editSubmit').addEventListener('click', checkAndEdit);
+          },
 
-    addItem: function () {
-        var newItem = document.createElement('li');
-        newItem.innerHTML = _('addInput').value;
-        newItem.id = newItem.innerHTML;
-        _('list').appendChild(newItem);
-        _('addInput').value = "";
-    },
+          deleteItem: function (e) {
+              if (e.target.childNodes.length <= 1){
+                  var closeBtn = document.createElement('button');
+                  closeBtn.innerHTML = 'X';
+                  closeBtn.id = 'closeBtn';
+                  var elementToErase = _(e.target.id);
 
-    editItem: function (e) {
-      //dodaj input
-        //jeśli element nie ma inputa to dodaj
-        function insertAfter(referenceNode, newNode) {
-            referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
-        }
-        var editInput = document.createElement('input');
-            editInput.placeholder = 'edytuj';
-            editInput.id = 'editInput';
-            var editSubmit = document.createElement('button');
-            //stwórz btn do potwierdzenia zmian
-            editSubmit.innerHTML = "Edytuj";
-            editSubmit.id = 'editSubmit';
-            var elementToEdit = document.getElementById(e.target.id);
+                  insertAfter(elementToErase, closeBtn);
 
-            insertAfter(elementToEdit, editInput);
-            insertAfter(elementToEdit, editSubmit);
-            //pobierz wartość inputa i wrzuć ją do elementu
+                   function eraseElement () {
+                      if (e.target && e.target.nodeName === "LI") {
+                          //dodaj zamykaczkę
+                          var parent = elementToErase.parentNode;
+                          parent.removeChild(elementToErase);
+                      }
+                  };
+                  _('closeBtn').addEventListener('click', eraseElement);
+              }
+          }
 
+      };
 
-        checkAndEdit = function () {
-            _('list').removeEventListener('click', app.editItem);
-
-            if (editInput.value.length !== 0) {
-                e.target.innerHTML = editInput.value;
-            } else {
-                console.log("wpisz coś");
-            }
-            console.log('succes');
-        }
-    },
-
-    deleteItem: function (e) {
-        _('list').removeEventListener('click', app.deleteItem);
-
-        if (e.target.childNodes.length <= 1){
-            var closeBtn = document.createElement('button');
-            closeBtn.innerHTML = 'X';
-            closeBtn.id = 'closeBtn';
-            var elementToErase = _(e.target.id);
-
-            insertAfter(elementToErase, closeBtn);
-
-            eraseElement = function () {
-                if (e.target && e.target.nodeName === "LI") {
-                    //dodaj zamykaczkę
-                    var parent = elementToErase.parentNode;
-                    parent.removeChild(elementToErase);
-                }
-            };
-            _('closeBtn').addEventListener('click', eraseElement);
-        }
-    }
-
-};
-
-app.displayItem();
-//event listeners
-    _('addBtn').addEventListener('click', app.addItem);
-//    _('list').addEventListener('click', app.editItem);
+      app.displayItem();
+      //event listeners
+      $('#list span').click(app.editItem);
+      _('addBtn').addEventListener('click', app.addItem);
   </script>
-</div>
 </body>
 </html>
