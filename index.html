@@ -35,6 +35,9 @@
       padding-left: 10px;
       padding-right: 20px;
     }
+    #editInput:nth-child(2) {
+      display: none;
+    }
   </style>
 </head>
 <body>
@@ -78,7 +81,6 @@
           },
 
           editItem: function (e) {
-              e.stopPropagation();
               var editor = e.target;
               //wyłącz przycisk edit
               //dodaj input
@@ -90,9 +92,11 @@
                   } else {
                       console.log("wpisz coś");
                   }
-                  //można dodawać następne EL
                   event.stopPropagation();
+                  $('#list span').on('click', app.editItem);
               }
+              $('#list span').off('click', app.editItem);
+
               var editInput = document.createElement('input');
               editInput.placeholder = 'edytuj';
               editInput.id = 'editInput';
@@ -102,7 +106,10 @@
               editSubmit.id = 'editSubmit';
                   editor.appendChild(editInput);
                   editor.appendChild(editSubmit);
-                      _('editSubmit').addEventListener('click', checkAndEdit);
+                  _('editSubmit').addEventListener('click', checkAndEdit);
+              e.stopPropagation();
+
+
           },
 
           deleteItem: function (e) {
@@ -129,7 +136,7 @@
 
       app.displayItem();
       //event listeners
-      $('#list span').click(app.editItem);
+      $('#list span').on('click', app.editItem);
       _('addBtn').addEventListener('click', app.addItem);
   </script>
 </body>
