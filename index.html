@@ -57,13 +57,14 @@
           referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
       }
       var app = {
-          items: ['1', '2', '3'],
+          items: ['uno', '2', '3'],
           //status open gdy user wpisuje coś do formularza
           isOpen:  false,
           displayItem: function () {
               var data = "";
               for (var i = 0; i < this.items.length; i++) {
-                  data += '<li id=' + this.items[i] + '><span class="item">' + this.items[i] + '</span></li>';
+//                  data += "<li><span class='item' id=' + this.items[i] + '>" + this.items[i] + "</span></li>"';
+                  data += '<li class=' + this.items[i] + '><span id=' + this.items[i] + '>' + this.items[i] + '</span></li>';
               }
               _('list').innerHTML = data;
           },
@@ -77,6 +78,7 @@
           },
 
           editItem: function (e) {
+              var editor = e.target;
               //wyłącz przycisk edit
               //dodaj input
               //jeśli element nie ma inputa to dodaj
@@ -86,8 +88,6 @@
                   } else {
                       console.log("wpisz coś");
                   }
-                  console.log(app.isOpen);
-                  app.isOpen = false;
                   //można dodawać następne EL
               }
               var editInput = document.createElement('input');
@@ -97,9 +97,8 @@
               //stwórz btn do potwierdzenia zmian
               editSubmit.innerHTML = "Edytuj";
               editSubmit.id = 'editSubmit';
-              var elementToEdit = _(e.target.id);
-                  elementToEdit.appendChild(editInput);
-                  elementToEdit.appendChild(editSubmit);
+                  editor.appendChild(editInput);
+                  editor.appendChild(editSubmit);
                       _('editSubmit').addEventListener('click', checkAndEdit);
           },
 
@@ -118,7 +117,7 @@
                           var parent = elementToErase.parentNode;
                           parent.removeChild(elementToErase);
                       }
-                  };
+                  }
                   _('closeBtn').addEventListener('click', eraseElement);
               }
           }
