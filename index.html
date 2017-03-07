@@ -41,6 +41,9 @@
 _ = function (id) {
     return document.getElementById(id);
 };
+function insertAfter(referenceNode, newNode) {
+    referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+}
 var app = {
     items: ['1', '2', '3'],
 
@@ -76,8 +79,8 @@ var app = {
             editSubmit.id = 'editSubmit';
             var elementToEdit = document.getElementById(e.target.id);
 
-        insertAfter(elementToEdit, editInput);
-        insertAfter(elementToEdit, editSubmit);
+            insertAfter(elementToEdit, editInput);
+            insertAfter(elementToEdit, editSubmit);
             //pobierz wartość inputa i wrzuć ją do elementu
 
 
@@ -101,7 +104,8 @@ var app = {
             closeBtn.innerHTML = 'X';
             closeBtn.id = 'closeBtn';
             var elementToErase = _(e.target.id);
-            elementToErase.appendChild(closeBtn);
+
+            insertAfter(elementToErase, closeBtn);
 
             eraseElement = function () {
                 if (e.target && e.target.nodeName === "LI") {
@@ -119,7 +123,7 @@ var app = {
 app.displayItem();
 //event listeners
     _('addBtn').addEventListener('click', app.addItem);
-    _('list').addEventListener('click', app.editItem);
+//    _('list').addEventListener('click', app.editItem);
   </script>
 </div>
 </body>
