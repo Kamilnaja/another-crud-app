@@ -1,0 +1,30 @@
+body {
+    text-transform: uppercase;
+    background-color: darkolivegreen;
+    color: burlywood;
+    font-family: Calibri;
+    font-size: 20px;
+    padding-left: 50px;
+}
+ul li {
+    cursor: pointer;
+}
+li {
+    padding: 10px 20px;
+    border: 1px dashed white;
+}
+#closeBtn {
+    display: inline-block;
+    margin-left: 20px;
+    cursor: pointer;
+}
+h1 {
+    max-width: 50%;
+}
+.item {
+    padding-left: 10px;
+    padding-right: 20px;
+}
+#editInput:nth-child(2) {
+    display: none;
+}
