@@ -14,15 +14,15 @@ var app = {
     displayItem: function () {
         var data = "";
         for (var i = 0; i < this.items.length; i++) {
-            data += '<li class="list-item"><span id=' + this.items[i] + '>' + this.items[i] + '</span></li>';
+            data += '<li class="listItem"><span id=' + this.items[i] + '>' + this.items[i] + '</span></li>';
         }
         _('list').innerHTML = data;
     },
 
     addItem: function () {
         var newItem = document.createElement('li');
+        newItem.classList = 'listItem';
         newItem.innerHTML = _('addInput').value;
-        newItem.id = newItem.innerHTML;
         _('list').appendChild(newItem);
         _('addInput').value = "";
     },
