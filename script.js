@@ -20,10 +20,16 @@ var app = {
     },
 
     addItem: function () {
-        var newItem = document.createElement('li');
+        var newItem = document.createElement('span');
         newItem.classList = 'listItem';
         newItem.innerHTML = _('addInput').value;
+        newItem.id = _('addInput').value;
+        //wrapnij w span
         _('list').appendChild(newItem);
+        var listItems = newItem.id;
+        $('#' + newItem.id).wrap('<li></li>');
+        $listItems = "";
+
         _('addInput').value = "";
     },
 
@@ -55,8 +61,6 @@ var app = {
         editor.appendChild(editSubmit);
         _('editSubmit').addEventListener('click', checkAndEdit);
         e.stopPropagation();
-
-
     },
 
     deleteItem: function (e) {
@@ -83,5 +87,5 @@ var app = {
 
 app.displayItem();
 //event listeners
-$('#list span').on('click', app.editItem);
+$('#list').on('click', app.editItem);
 _('addBtn').addEventListener('click', app.addItem);
