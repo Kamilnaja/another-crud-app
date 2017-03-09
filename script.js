@@ -23,7 +23,7 @@ var app = {
         var newItem = document.createElement('span');
         newItem.classList = 'listItem';
         newItem.innerHTML = _('addInput').value;
-        newItem.id = _('addInput').value;
+        newItem.id = _('addInput').value.replace(/\s+/g, '');
         //wrapnij w span
         _('list').appendChild(newItem);
         var listItems = newItem.id;
@@ -87,5 +87,5 @@ var app = {
 
 app.displayItem();
 //event listeners
-$('#list').on('click', app.editItem);
+$('#list span').on('click', app.editItem);
 _('addBtn').addEventListener('click', app.addItem);
