@@ -42,7 +42,15 @@ input {
   padding-left: 5px;
 }
 .itemSelect {
-  float: right;
   color: cornflowerblue;
-  margin-top: 10px;
+  float: right;
+  display: none;
+}
+.listItem:hover select,
+.listItem:active select,{
+  display: inline;
+}
+.listItem:hover,
+.listItem:active {
+  background-color: darken(darkcyan, 5%);
 }

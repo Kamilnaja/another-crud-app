@@ -14,7 +14,7 @@ var app = {
     displayItem: function () {
         var data = "";
         for (var i = 0; i < this.items.length; i++) {
-            data += '<select class="itemSelect"><option>Edit</option><option>Erase</option></select><li class="listItem"><span id=' + this.items[i] + '>' + this.items[i] + '</span></li>';
+            data += '<li class="listItem"><span id=' + this.items[i] + '>' + this.items[i] + '<select class="itemSelect"><option>Edit</option><option>Erase</option></select></li></span>';
         }
         _('list').innerHTML = data;
     },
@@ -70,5 +70,4 @@ var app = {
 
 app.displayItem();
 //event listeners
-$('#list span').on('click', app.editItem);
 _('addBtn').addEventListener('click', app.addItem);
