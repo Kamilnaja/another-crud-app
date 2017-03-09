@@ -14,7 +14,7 @@ var app = {
     displayItem: function () {
         var data = "";
         for (var i = 0; i < this.items.length; i++) {
-            data += '<li class="listItem"><span id=' + this.items[i] + '>' + this.items[i] + '</span></li>';
+            data += '<select class="itemSelect"><option>Edit</option><option>Erase</option></select><li class="listItem"><span id=' + this.items[i] + '>' + this.items[i] + '</span></li>';
         }
         _('list').innerHTML = data;
     },
@@ -64,26 +64,9 @@ var app = {
     },
 
     deleteItem: function (e) {
-        if (e.target.childNodes.length <= 1){
-            var closeBtn = document.createElement('button');
-            closeBtn.innerHTML = 'X';
-            closeBtn.id = 'closeBtn';
-            var elementToErase = _(e.target.id);
 
-            insertAfter(elementToErase, closeBtn);
-
-            function eraseElement () {
-                if (e.target && e.target.nodeName === "LI") {
-                    //dodaj zamykaczkę
-                    var parent = elementToErase.parentNode;
-                    parent.removeChild(elementToErase);
-                }
-            }
-            _('closeBtn').addEventListener('click', eraseElement);
-        }
     }
-
-};
+}
 
 app.displayItem();
 //event listeners
