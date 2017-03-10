@@ -30,7 +30,7 @@ var app = {
         //wrapnij w span
         _('list').appendChild(newItem);
         var listItems = newItem.id;
-        $('#' + newItem.id).wrap('<li class="listItem"></li>').append('<select class="itemSelect"><option>Edit</option><option>Erase</option></select>');
+        $('#' + newItem.id).wrap('<li class="listItem"></li>').append('<select class="itemSelect"><option value="erase">Edit</option><option>Erase</option></select>');
         $listItems = "";
 
         _('addInput').value = "";
@@ -67,13 +67,16 @@ var app = {
     },
 
     deleteItem: function () {
-        console.log('item erased');
-        $(this).parent().parent().detach();
-        $(this).parent().detach();
+        if ($('.itemSelect').val() == "erase"){
+            console.log('item erased');
+            $(this).parent().parent().detach();
+            $(this).parent().detach();
+        }
     }
 }
 
 app.displayItem();
 //event listeners
 _('addBtn').addEventListener('click', app.addItem);
-$('.listItem').on('change', '.itemSelect', app.deleteItem);
+//also for dynamically created elements
+$(document).on('change', '.itemSelect', app.deleteItem);
