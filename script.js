@@ -14,8 +14,8 @@ var app = {
     displayItem: function () {
         var data = "";
         for (var i = 0; i < this.items.length; i++) {
-            var optionValue = `<select class="itemSelect">" + optionValue + "<option>Edit</option>
-                <option>Erase</option>
+            var optionValue = `<select class="itemSelect">" + optionValue + "<option hidden>Options</option><option value="edit">Edit</option>
+                <option value="erase">Erase</option>
                 </select></li></span>`;
             data += '<li class="listItem"><span id=' + this.items[i] + '>' + this.items[i] + optionValue;
         }
@@ -66,11 +66,14 @@ var app = {
         e.stopPropagation();
     },
 
-    deleteItem: function (e) {
-
+    deleteItem: function () {
+        console.log('item erased');
+        $(this).parent().parent().detach();
+        $(this).parent().detach();
     }
 }
 
 app.displayItem();
 //event listeners
 _('addBtn').addEventListener('click', app.addItem);
+$('.listItem').on('change', '.itemSelect', app.deleteItem);
