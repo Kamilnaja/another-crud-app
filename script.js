@@ -14,7 +14,10 @@ var app = {
     displayItem: function () {
         var data = "";
         for (var i = 0; i < this.items.length; i++) {
-            data += '<li class="listItem"><span id=' + this.items[i] + '>' + this.items[i] + '<select class="itemSelect"><option>Edit</option><option>Erase</option></select></li></span>';
+            var optionValue = `<select class="itemSelect">" + optionValue + "<option>Edit</option>
+                <option>Erase</option>
+                </select></li></span>`;
+            data += '<li class="listItem"><span id=' + this.items[i] + '>' + this.items[i] + optionValue;
         }
         _('list').innerHTML = data;
     },
@@ -27,7 +30,7 @@ var app = {
         //wrapnij w span
         _('list').appendChild(newItem);
         var listItems = newItem.id;
-        $('#' + newItem.id).wrap('<li></li>');
+        $('#' + newItem.id).wrap('<li class="listItem"></li>').append('<select class="itemSelect"><option>Edit</option><option>Erase</option></select>');
         $listItems = "";
 
         _('addInput').value = "";
