@@ -12,7 +12,7 @@ var app = {
         1: 'uno',
         2: '2',
         3: '3'
-    }, 
+    },
     saveToLocalStorage: function () {
         localStorage.setItem('app.items', JSON.stringify(app.items));
     },
@@ -99,9 +99,8 @@ var app = {
     }
 }
 
-app.displayItem();
 //event listeners
-app.saveToLocalStorage();
+app.displayItem();
 $('#addBtn').on('click', app.addItem);
 $(document).on('change', '.itemSelect', app.deleteItem);
 $(document).on('change', '.itemSelect', app.editItem);
