@@ -9,9 +9,6 @@ function insertAfter(referenceNode, newNode) {
 }
 var app = {
     items: {
-        1: 'uno',
-        2: '2',
-        3: '3'
     },
     saveToLocalStorage: function () {
         localStorage.setItem('app.items', JSON.stringify(app.items));
@@ -23,7 +20,10 @@ var app = {
     },
     displayItem: function () {
         var retrievedObject = localStorage.getItem('app.items');
-        app.items = JSON.parse(retrievedObject);
+        app.parsedObject = JSON.parse(retrievedObject);
+        app.items = app.parsedObject;
+        // var retrievedObject = localStorage.getItem('app.items');
+        // app.items = JSON.parse(retrievedObject);
         var data = "";
         for (var i in app.items) {
             var optionValue = `
@@ -35,11 +35,16 @@ var app = {
             data += '<li class="listItem"><span id=' + this.items[i] + '>' + this.items[i] + optionValue;
         }
         _('list').innerHTML = data;
-        localStorage.setItem('app.items', JSON.stringify(app.items));
     },
 
     addItem: function () {
-
+        //jeśli localstorage jest pusta to dodaj do niej pusty elemenent
+        if (localStorage.getItem('app.items') === null) {
+            app.items = {}
+            localStorage.setItem('app.items', JSON.stringify(app.items));
+        }
+        var retrievedObject = localStorage.getItem('app.items');
+        app.items = JSON.parse(retrievedObject);
         var tempInput = $('#addInput').val();
         var submitNewitem = $('#addBtn');
         // http://stackoverflow.com/questions/5223/length-of-a-javascript-object
@@ -58,33 +63,7 @@ var app = {
     },
 
     editItem: function () {
-        // var editor = e.target;
-        // //wyłącz przycisk edit
-        // //dodaj input
-        // //jeśli element nie ma inputa to dodaj
-        // function checkAndEdit (event) {
-        //     if (editInput.value.length !== 0) {
-        //         console.log(e.target.id);
-        //         e.target.innerHTML = editInput.value;
-        //     } else {
-        //         console.log("wpisz coś");
-        //     }
-        //     event.stopPropagation();
-        //     $('#list span').on('click', app.editItem);
-        // }
-        // $('#list span').off('click', app.editItem);
-        //
-        // var editInput = document.createElement('input');
-        // editInput.placeholder = 'edytuj';
-        // editInput.id = 'editInput';
-        // var editSubmit = document.createElement('button');
-        // //stwórz btn do potwierdzenia zmian
-        // editSubmit.innerHTML = "Edytuj";
-        // editSubmit.id = 'editSubmit';
-        // editor.appendChild(editInput);
-        // editor.appendChild(editSubmit);
-        // _('editSubmit').addEventListener('click', checkAndEdit);
-        // e.stopPropagation();
+
         if ($('.itemSelect').val() == "edit"){
             console.log('app is edited');
         }
