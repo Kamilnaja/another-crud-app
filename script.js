@@ -12,7 +12,7 @@ var app = {
         1: 'uno',
         2: '2',
         3: '3'
-    },
+    }, 
     saveToLocalStorage: function () {
         localStorage.setItem('app.items', JSON.stringify(app.items));
     },
@@ -21,7 +21,6 @@ var app = {
         app.parsedObject = JSON.parse(retrievedObject);
         return parsedObject;
     },
-    //status open gdy user wpisuje coś do formularza
     displayItem: function () {
         var retrievedObject = localStorage.getItem('app.items');
         app.items = JSON.parse(retrievedObject);
