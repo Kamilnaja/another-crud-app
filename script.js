@@ -97,9 +97,10 @@ var app = {
             $(this).parent().detach();
         }
     }
-}
+};
 
 //event listeners
+
 app.displayItem();
 $('#addBtn').on('click', app.addItem);
 $(document).on('change', '.itemSelect', app.deleteItem);
