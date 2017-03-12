@@ -25,20 +25,17 @@ var app = {
                 <option value="edit">Edit</option>
                 <option value="erase">Erase</option>
             </select></li></span>`;
-<<<<<<< HEAD
-            data += '<li class="listItem"><span id="' + app.items[i] + '">' + this.items[i] + optionValue;
-=======
+
             data += '<li class="listItem"><span id=' + app.items[i].id + '>' + app.items[i].name + optionValue;
->>>>>>> 17
         }
         $('#list').html(data);
     },
 
     addItem: function () {
         // jeśli localstorage jest pusta to dodaj do niej pusty element
-        if (localStorage.getItem('app.items') === null) {
+        if (localStorage.getItem('app.items') == null) {
             //zainicjuj
-            app.items = [{id: '', name: '', isFinished: ''}];
+            app.items = [];
             localStorage.setItem('app.items', JSON.stringify(app.items));
         }
         app.items = JSON.parse(localStorage.getItem('app.items'));
@@ -62,26 +59,11 @@ var app = {
     },
 
     deleteItem: function () {
-<<<<<<< HEAD
-        $('select').on('change', function(){
-            //wyszukaj dane id w obiekcie i usuń
-            var itemToDelete = (this.parentElement.id);
-            //znajdź to id w obiekcie
-            //zwróć numer tego elementu
-            delete app.items.itemToDelete;
-            console.log(app.items);
-            var toDelete = $(this.parentElement);
-            // toDelete.parent().detach();
 
-
-        });
-
-=======
         if ($('.itemSelect').val() == "erase"){
             $(this).parent().parent().detach();
             $(this).parent().detach();
         }
->>>>>>> 17
     }
 };
 
