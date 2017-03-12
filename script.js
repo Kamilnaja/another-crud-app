@@ -1,22 +1,16 @@
 /**
  * Created by Kamil on 2017-03-08.
  */
-function insertAfter(referenceNode, newNode) {
-    referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
-}
 var app = {
-    // items: [{id: 1, name: "coś tam", isFinished: false}, {id: 2, name: "hello", isFinished: true}],
-    // saveToLocalStorage: function () {
-    //     localStorage.setItem('app.items', JSON.stringify(app.items));
-    // },
-    // getFromLocalStorage: function () {
-    //     var retrievedObject = localStorage.getItem('app.items');
-    //     app.parsedObject = JSON.parse(retrievedObject);
-    //     return parsedObject;
-    // },
-    displayItem: function () {
+    saveToLocalStorage: function () {
+        localStorage.setItem('app.items', JSON.stringify(app.items));
+    },
+    getFromLocalStorage: function () {
         var retrievedObject = localStorage.getItem('app.items');
         app.items = JSON.parse(retrievedObject);
+    },
+    displayItem: function () {
+        app.getFromLocalStorage();
         var data = "";
         for (var i in app.items) {
             var optionValue = `
@@ -36,9 +30,10 @@ var app = {
         if (localStorage.getItem('app.items') == null) {
             //zainicjuj
             app.items = [];
-            localStorage.setItem('app.items', JSON.stringify(app.items));
+            app.saveToLocalStorage();
         }
-        app.items = JSON.parse(localStorage.getItem('app.items'));
+        app.getFromLocalStorage();
+        // app.items = JSON.parse(localStorage.getItem('app.items'));
         var tempInput = $('#addInput').val();
         var submitNewitem = $('#addBtn');
         //dodaj pusty object na koniec
@@ -47,7 +42,7 @@ var app = {
         app.items[app.items.length - 1].name = tempInput;
         app.items[app.items.length - 1].isFinished = "false";
         //zapisz do local storage
-        localStorage.setItem('app.items', JSON.stringify(app.items));
+        app.saveToLocalStorage();
         $("#addInput").val("");
         app.displayItem();
     },
@@ -61,7 +56,6 @@ var app = {
     deleteItem: function () {
 
         if ($('.itemSelect').val() == "erase"){
-            $(this).parent().parent().detach();
             $(this).parent().detach();
         }
     }
