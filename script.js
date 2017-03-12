@@ -1,27 +1,22 @@
 /**
  * Created by Kamil on 2017-03-08.
  */
-
 function insertAfter(referenceNode, newNode) {
     referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
 }
 var app = {
-    items: {
-    },
-    saveToLocalStorage: function () {
-        localStorage.setItem('app.items', JSON.stringify(app.items));
-    },
-    getFromLocalStorage: function () {
-        var retrievedObject = localStorage.getItem('app.items');
-        app.parsedObject = JSON.parse(retrievedObject);
-        return parsedObject;
-    },
+    // items: [{id: 1, name: "coś tam", isFinished: false}, {id: 2, name: "hello", isFinished: true}],
+    // saveToLocalStorage: function () {
+    //     localStorage.setItem('app.items', JSON.stringify(app.items));
+    // },
+    // getFromLocalStorage: function () {
+    //     var retrievedObject = localStorage.getItem('app.items');
+    //     app.parsedObject = JSON.parse(retrievedObject);
+    //     return parsedObject;
+    // },
     displayItem: function () {
         var retrievedObject = localStorage.getItem('app.items');
-        app.parsedObject = JSON.parse(retrievedObject);
-        app.items = app.parsedObject;
-        // var retrievedObject = localStorage.getItem('app.items');
-        // app.items = JSON.parse(retrievedObject);
+        app.items = JSON.parse(retrievedObject);
         var data = "";
         for (var i in app.items) {
             var optionValue = `
@@ -30,46 +25,40 @@ var app = {
                 <option value="edit">Edit</option>
                 <option value="erase">Erase</option>
             </select></li></span>`;
-            data += '<li class="listItem"><span id=' + this.items[i] + '>' + this.items[i] + optionValue;
+            data += '<li class="listItem"><span id=' + app.items[i].id + '>' + app.items[i].name + optionValue;
         }
         $('#list').html(data);
     },
 
     addItem: function () {
-        //jeśli localstorage jest pusta to dodaj do niej pusty elemenent
+        // jeśli localstorage jest pusta to dodaj do niej pusty element
         if (localStorage.getItem('app.items') === null) {
-            app.items = {}
+            //zainicjuj
+            app.items = [{id: '', name: '', isFinished: ''}];
             localStorage.setItem('app.items', JSON.stringify(app.items));
         }
-        var retrievedObject = localStorage.getItem('app.items');
-        app.items = JSON.parse(retrievedObject);
+        app.items = JSON.parse(localStorage.getItem('app.items'));
         var tempInput = $('#addInput').val();
         var submitNewitem = $('#addBtn');
-        // http://stackoverflow.com/questions/5223/length-of-a-javascript-object
-        Object.size = function(obj) {
-            var size = 0, key;
-            for (key in obj) {
-                if (obj.hasOwnProperty(key)) size++;
-            }
-            return size;
-        };
-        app.items[Object.size(app.items) + 1] = tempInput;
-           // app.items.push(tempInput);
-        $("#addInput").val(" ");
+        //dodaj pusty object na koniec
+        app.items[app.items.length] = {};
+        app.items[app.items.length - 1].id = app.items.length;
+        app.items[app.items.length - 1].name = tempInput;
+        app.items[app.items.length - 1].isFinished = "false";
+        //zapisz do local storage
         localStorage.setItem('app.items', JSON.stringify(app.items));
+        $("#addInput").val("");
         app.displayItem();
     },
 
     editItem: function () {
 
         if ($('.itemSelect').val() == "edit"){
-            console.log('app is edited');
         }
     },
 
     deleteItem: function () {
         if ($('.itemSelect').val() == "erase"){
-            console.log('item erased');
             $(this).parent().parent().detach();
             $(this).parent().detach();
         }
