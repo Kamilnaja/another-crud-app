@@ -27,12 +27,12 @@ var app = {
         var data = "";
         for (var i in app.items) {
             var optionValue = `
-            <select class="itemSelect">" + optionValue + "
+            <select class="itemSelect">
                 <option hidden>Options</option>
                 <option value="edit">Edit</option>
                 <option value="erase">Erase</option>
             </select></li></span>`;
-            data += '<li class="listItem"><span id=' + this.items[i] + '>' + this.items[i] + optionValue;
+            data += '<li class="listItem"><span id="' + app.items[i] + '">' + this.items[i] + optionValue;
         }
         _('list').innerHTML = data;
     },
@@ -70,11 +70,19 @@ var app = {
     },
 
     deleteItem: function () {
-        if ($('.itemSelect').val() == "erase"){
-            console.log('item erased');
-            $(this).parent().parent().detach();
-            $(this).parent().detach();
-        }
+        $('select').on('change', function(){
+            //wyszukaj dane id w obiekcie i usuń
+            var itemToDelete = (this.parentElement.id);
+            //znajdź to id w obiekcie
+            //zwróć numer tego elementu
+            delete app.items.itemToDelete;
+            console.log(app.items);
+            var toDelete = $(this.parentElement);
+            // toDelete.parent().detach();
+
+
+        });
+
     }
 };
 
@@ -82,5 +90,5 @@ var app = {
 
 app.displayItem();
 $('#addBtn').on('click', app.addItem);
-$(document).on('change', '.itemSelect', app.deleteItem);
 $(document).on('change', '.itemSelect', app.editItem);
+app.deleteItem();
