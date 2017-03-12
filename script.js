@@ -1,9 +1,7 @@
 /**
  * Created by Kamil on 2017-03-08.
  */
-_ = function (id) {
-    return document.getElementById(id);
-};
+
 function insertAfter(referenceNode, newNode) {
     referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
 }
@@ -34,7 +32,7 @@ var app = {
             </select></li></span>`;
             data += '<li class="listItem"><span id=' + this.items[i] + '>' + this.items[i] + optionValue;
         }
-        _('list').innerHTML = data;
+        $('#list').html(data);
     },
 
     addItem: function () {
@@ -57,7 +55,7 @@ var app = {
         };
         app.items[Object.size(app.items) + 1] = tempInput;
            // app.items.push(tempInput);
-        _('addInput').value = "";
+        $("#addInput").val(" ");
         localStorage.setItem('app.items', JSON.stringify(app.items));
         app.displayItem();
     },
