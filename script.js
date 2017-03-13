@@ -19,8 +19,8 @@ var app = {
                 <option value="edit">Edit</option>
                 <option value="erase">Erase</option>
             </select></li></span>`;
-
-            data += '<li class="listItem"><span id=' + app.items[i].id + '>' + app.items[i].name + optionValue;
+            //nadaj kolejno id
+            data += '<li class="listItem"><span id=' + i + '>' + app.items[i].name + optionValue;
         }
         $('#list').html(data);
     },
@@ -38,7 +38,6 @@ var app = {
         var submitNewitem = $('#addBtn');
         //dodaj pusty object na koniec
         app.items[app.items.length] = {};
-        app.items[app.items.length - 1].id = app.items.length;
         app.items[app.items.length - 1].name = tempInput;
         app.items[app.items.length - 1].isFinished = "false";
         //zapisz do local storage
@@ -56,13 +55,11 @@ var app = {
     },
 
     deleteItem: function () {
-        if ($('.itemSelect').val() === "erase") {
+        app.getFromLocalStorage();
             var tableItemNumber = $(this).parent().attr('id');
-            $('.itemSelect').val = "unchosen";
             app.items.splice(tableItemNumber, 1);
             app.saveToLocalStorage();
             app.displayItem();
-        }
     }
 };
 
@@ -70,5 +67,15 @@ var app = {
 
 app.displayItem();
 $('#addBtn').on('click', app.addItem);
-$(document).on('change', '.itemSelect', app.editItem);
-$(document).on('change', '.itemSelect', app.deleteItem);
+// $(document).on('change', '.itemSelect', app.editItem);
+// $(document).on('change', '.itemSelect', function(){
+//     console.log($('.itemSelect').val());
+//
+// });
+$(document).on('change', '.itemSelect', function(){
+    if (this.value === "erase"){
+        app.deleteItem();
+    } else {
+        console.log(this.value);
+    }
+})
