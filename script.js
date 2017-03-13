@@ -48,15 +48,16 @@ var app = {
     },
 
     editItem: function () {
-
-        if ($('.itemSelect').val() == "edit"){
+   //SPRAWDŹ wartość formularza
+        if ($('.itemSelect').val() === "edit") {
+            console.log('edit');
         }
     },
 
     deleteItem: function () {
-
-        if ($('.itemSelect').val() == "erase"){
-            $(this).parent().detach();
+        if ($('.itemSelect').val() === "erase"){
+            console.log('erase');
+            //wypisz numer obiektu
         }
     }
 };
@@ -66,4 +67,4 @@ var app = {
 app.displayItem();
 $('#addBtn').on('click', app.addItem);
 $(document).on('change', '.itemSelect', app.editItem);
-app.deleteItem();
+$(document).on('change', '.itemSelect', app.deleteItem);
