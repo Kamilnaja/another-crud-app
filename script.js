@@ -15,7 +15,7 @@ var app = {
         for (var i in app.items) {
             var optionValue = `
             <select class="itemSelect">
-                <option hidden>Options</option>
+                <option hidden value="unchosen">Options</option>
                 <option value="edit">Edit</option>
                 <option value="erase">Erase</option>
             </select></li></span>`;
@@ -48,6 +48,7 @@ var app = {
     },
 
     editItem: function () {
+
    //SPRAWDŹ wartość formularza
         if ($('.itemSelect').val() === "edit") {
             console.log('edit');
@@ -55,9 +56,12 @@ var app = {
     },
 
     deleteItem: function () {
-        if ($('.itemSelect').val() === "erase"){
-            console.log('erase');
-            //wypisz numer obiektu
+        if ($('.itemSelect').val() === "erase") {
+            var tableItemNumber = $(this).parent().attr('id');
+            $('.itemSelect').val = "unchosen";
+            app.items.splice(tableItemNumber, 1);
+            app.saveToLocalStorage();
+            app.displayItem();
         }
     }
 };
