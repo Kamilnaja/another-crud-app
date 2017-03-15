@@ -46,17 +46,23 @@ var app = {
         app.displayItem();
     },
 
-    editItem: function () {
-
+    editItem: function (e) {
+    //pobierz z local
    //SPRAWDŹ wartość formularza
-        if ($('.itemSelect').val() === "edit") {
-            console.log('edit');
-        }
+        app.getFromLocalStorage();
+        var tableItemNumber = e.target.parentNode.id;
+        var editItemValue = prompt("Edytuj");
+        app.items[tableItemNumber].name = editItemValue;
+        console.log(tableItemNumber);
+        app.saveToLocalStorage();
+        app.displayItem();
+        // console.log(app.items);
     },
 
-    deleteItem: function () {
+    deleteItem: function (e) {
         app.getFromLocalStorage();
-            var tableItemNumber = $(this).parent().attr('id');
+            var tableItemNumber = e.target.parentNode.id;
+            //zwraca cały obiekt
             app.items.splice(tableItemNumber, 1);
             app.saveToLocalStorage();
             app.displayItem();
@@ -67,15 +73,11 @@ var app = {
 
 app.displayItem();
 $('#addBtn').on('click', app.addItem);
-// $(document).on('change', '.itemSelect', app.editItem);
-// $(document).on('change', '.itemSelect', function(){
-//     console.log($('.itemSelect').val());
-//
-// });
-$(document).on('change', '.itemSelect', function(){
+
+$(document).on('change', '.itemSelect', function(e){
     if (this.value === "erase"){
-        app.deleteItem();
-    } else {
-        console.log(this.value);
+        app.deleteItem(e);
+    } else if (this.value === "edit"){
+        app.editItem(e);
     }
-})
+});
