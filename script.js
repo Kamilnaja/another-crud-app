@@ -22,12 +22,13 @@ var app = {
             //nadaj kolejno id
             data += '<li class="listItem"><span id=' + i + '>' + app.items[i].name + optionValue;
         }
+        //dodaj wartości do pola
         $('#list').html(data);
     },
 
     addItem: function () {
         // jeśli localstorage jest pusta to dodaj do niej pusty element
-        if (localStorage.getItem('app.items') == null) {
+        if (localStorage.getItem('app.items') === null) {
             //zainicjuj
             app.items = [];
             app.saveToLocalStorage();
@@ -48,24 +49,24 @@ var app = {
 
     editItem: function (e) {
     //pobierz z local
-   //SPRAWDŹ wartość formularza
         app.getFromLocalStorage();
         var tableItemNumber = e.target.parentNode.id;
         var editItemValue = prompt("Edytuj");
+        if (editItemValue.length === 0) {
+            alert("Formularz jest pusty");
+        }
         app.items[tableItemNumber].name = editItemValue;
-        console.log(tableItemNumber);
         app.saveToLocalStorage();
         app.displayItem();
-        // console.log(app.items);
     },
 
     deleteItem: function (e) {
         app.getFromLocalStorage();
-            var tableItemNumber = e.target.parentNode.id;
-            //zwraca cały obiekt
-            app.items.splice(tableItemNumber, 1);
-            app.saveToLocalStorage();
-            app.displayItem();
+        //pobierz odpowiedni element tablicy
+        var tableItemNumber = e.target.parentNode.id;
+        app.items.splice(tableItemNumber, 1);
+        app.saveToLocalStorage();
+        app.displayItem();
     }
 };
 
