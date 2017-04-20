@@ -1,19 +1,39 @@
 /**
  * Created by Kamil on 2017-03-08.
  */
-var app = (function () {
-    "use strict";
-    var _saveToLocalStorage = function () {
+var app = {
+    data: [],
+    init: function () {
+        this.cacheDom();
+        this.bindEvents();
+        this.displayItem();
+    },
+    cacheDom: function () {
+        this.list = document.getElementById("list");
+        this.addInput = document.getElementById("addInput");
+        this.addBtn = document.getElementById("addBtn");
+    },
+    bindEvents: function () {
+        this.addBtn.addEventListener("click", app.addItem);
+        $(document).on("change", ".itemSelect", function (e) {
+            if (this.value === "erase") {
+                app.deleteItem(e);
+            } else if (this.value === "edit") {
+                app.editItem(e);
+            }
+        });
+    },
+    saveToLocalStorage: function () {
         localStorage.setItem("app.items", JSON.stringify(app.items));
-    };
-    var _getFromLocalStorage = function () {
+    },
+    getFromLocalStorage: function () {
         var retrievedObject = localStorage.getItem("app.items");
         app.items = JSON.parse(retrievedObject);
-    };
+    },
 
-    var _displayItem = function () {
-        _getFromLocalStorage();
-        var _data = "";
+    displayItem: function () {
+        app.getFromLocalStorage();
+        var data = "";
         for (var i in app.items) {
             var optionValue =
                 '<select class="itemSelect">' +
@@ -22,77 +42,54 @@ var app = (function () {
                 '<option value="erase">Erase</option>' +
                 '</select></li></span>';
             //nadaj kolejno id
-            _data += '<li class="listItem"><span id=' + i + ">" + app.items[i].name + optionValue;
+            data += '<li class="listItem"><span id=' + i + ">" + app.items[i].name + optionValue;
         }
-        _list.innerHTML = _data;
-    };
+        app.list.innerHTML = data;
+    },
 
-    var _addItem = function () {
+    addItem: function () {
         // jeśli localstorage jest pusta to dodaj do niej pusty element
         if (localStorage.getItem("app.items") === null) {
             //zainicjuj
             app.items = [];
-            _saveToLocalStorage();
+            this.saveToLocalStorage();
         }
-        _getFromLocalStorage();
-        var tempInput = _addInput.value;
+        app.getFromLocalStorage();
+        var tempInput = app.addInput.value;
         if (tempInput.length > 0) {
             //wrzuć element do tablicy na koniec
             app.items[app.items.length] = {};
             app.items[app.items.length - 1].name = tempInput;
             app.items[app.items.length - 1].isFinished = "false";
-            _saveToLocalStorage();
+            app.saveToLocalStorage();
             //wyzeruj wartość pola
-            _addInput.value = "";
+            app.addInput.value = "";
         } else {
             alert("wpisz coś");
         }
-        _displayItem();
-    };
+        app.displayItem();
+    },
 
-    var _editItem = function (e) {
-        _getFromLocalStorage();
+    editItem: function (e) {
+        app.getFromLocalStorage();
         var tableItemNumber = e.target.parentNode.id;
         var editItemValue = prompt("Edytuj");
         if (editItemValue.length === 0) {
             alert("Formularz jest pusty");
         }
         app.items[tableItemNumber].name = editItemValue;
-        _saveToLocalStorage();
-        _displayItem();
-    };
+        app.saveToLocalStorage();
+        app.displayItem();
+    },
 
-    var _deleteItem = function (e) {
-        _getFromLocalStorage();
+    deleteItem: function (e) {
+        app.getFromLocalStorage();
         //pobierz odpowiedni element tablicy
         var tableItemNumber = e.target.parentNode.id;
         app.items.splice(tableItemNumber, 1);
-        _saveToLocalStorage();
-        _displayItem();
-    };
-
-    //cached dom items
-    var _list = document.getElementById("list");
-    var _addInput = document.getElementById("addInput");
-    var _addBtn = document.getElementById("addBtn");
-
-    return {
-        displayItem: _displayItem,
-        editItem: _editItem,
-        deleteItem: _deleteItem,
-        addItem: _addItem,
-        addBtn: _addBtn
+        app.saveToLocalStorage();
+        app.displayItem();
     }
-}());
+};
 
-app.displayItem();
-
-app.addBtn.addEventListener("click", app.addItem);
-
-$(document).on("change", ".itemSelect", function (e) {
-    if (this.value === "erase") {
-        app.deleteItem(e);
-    } else if (this.value === "edit") {
-        app.editItem(e);
-    }
-});
+app.init();
