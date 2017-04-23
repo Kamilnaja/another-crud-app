@@ -6,12 +6,16 @@ var app = {
     init: function () {
         this.cacheDom();
         this.bindEvents();
-        this.displayItem();
+        this.renderItems();
     },
     cacheDom: function () {
         this.list = document.getElementById("list");
         this.addInput = document.getElementById("addInput");
         this.addBtn = document.getElementById("addBtn");
+    },
+    renderItems: function () {
+        this.getFromLocalStorage();
+        console.log(typeof app.items);
     },
     bindEvents: function () {
         this.addBtn.addEventListener("click", app.addItem);
