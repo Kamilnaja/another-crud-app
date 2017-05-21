@@ -3,7 +3,6 @@
  */
 
 var app = {
-
     data: [],
     init: function () {
         this.cacheDom();
@@ -38,17 +37,8 @@ var app = {
         //todo display using hbs
         var source = document.getElementById("tpl").innerHTML;
         var template = Handlebars.compile(source);
-
         var html = template(app);
-
         document.getElementById("output").innerHTML = html;
-
-        // for (var i in app.items) {
-        //     var optionValue =
-        //
-        //     //nadaj kolejno id
-        //     data += '<li class="listItem"><span id=' + i + ">" + app.items[i].name + optionValue;
-        // }
     },
 
     addItem: function () {
