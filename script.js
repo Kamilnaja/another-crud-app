@@ -8,15 +8,12 @@ var app = {
     init: function () {
         this.cacheDom();
         this.bindEvents();
-        this.renderItems();
+        this.displayItem();
     },
     cacheDom: function () {
         this.list = document.getElementById("list");
         this.addInput = document.getElementById("addInput");
         this.addBtn = document.getElementById("addBtn");
-    },
-    renderItems: function () {
-        this.getFromLocalStorage();
     },
     bindEvents: function () {
         this.addBtn.addEventListener("click", app.addItem);
@@ -46,12 +43,12 @@ var app = {
 
         document.getElementById("output").innerHTML = html;
 
-        for (var i in app.items) {
-            var optionValue =
-
-            //nadaj kolejno id
-            data += '<li class="listItem"><span id=' + i + ">" + app.items[i].name + optionValue;
-        }
+        // for (var i in app.items) {
+        //     var optionValue =
+        //
+        //     //nadaj kolejno id
+        //     data += '<li class="listItem"><span id=' + i + ">" + app.items[i].name + optionValue;
+        // }
     },
 
     addItem: function () {
@@ -80,10 +77,12 @@ var app = {
     editItem: function (e) {
         app.getFromLocalStorage();
         var tableItemNumber = e.target.parentNode.id;
+        console.log(tableItemNumber);
         var editItemValue = prompt("Edytuj");
         if (editItemValue.length === 0) {
             alert("Formularz jest pusty");
         }
+
         app.items[tableItemNumber].name = editItemValue;
         app.saveToLocalStorage();
         app.displayItem();

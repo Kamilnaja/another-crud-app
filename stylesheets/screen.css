@@ -7,38 +7,38 @@ body {
   font-size: 20px;
 }
 
-/* line 8, ../sass/screen.scss */
+/* line 9, ../sass/screen.scss */
 #list {
   list-style-position: inside;
   border-left: 1px dashed white;
 }
 
-/* line 13, ../sass/screen.scss */
+/* line 15, ../sass/screen.scss */
 #list li {
   cursor: pointer;
   padding: 10px 20px;
   border-bottom: 1px dashed white;
 }
 
-/* line 19, ../sass/screen.scss */
+/* line 21, ../sass/screen.scss */
 .btnClose {
   float: left;
 }
 
-/* line 22, ../sass/screen.scss */
+/* line 25, ../sass/screen.scss */
 #closeBtn {
   display: inline-block;
   margin-left: 20px;
   cursor: pointer;
 }
 
-/* line 28, ../sass/screen.scss */
+/* line 31, ../sass/screen.scss */
 .item {
   padding-left: 10px;
   padding-right: 20px;
 }
 
-/* line 33, ../sass/screen.scss */
+/* line 36, ../sass/screen.scss */
 #editSubmit {
   color: cornflowerblue;
   background-color: white;
@@ -46,33 +46,27 @@ body {
   text-transform: uppercase;
 }
 
-/* line 39, ../sass/screen.scss */
+/* line 43, ../sass/screen.scss */
 input {
   color: cornflowerblue;
   padding-left: 5px;
 }
 
-/* line 43, ../sass/screen.scss */
+/* line 48, ../sass/screen.scss */
 .itemSelect {
   color: cornflowerblue;
   float: right;
   display: none;
 }
 
-/* line 48, ../sass/screen.scss */
+/* line 54, ../sass/screen.scss */
 .listItem:hover select,
 .listItem:active select {
   display: inline;
 }
 
-/* line 52, ../sass/screen.scss */
+/* line 59, ../sass/screen.scss */
 .listItem:hover,
 .listItem:active {
   background-color: #007272;
-}
-
-/* line 57, ../sass/screen.scss */
-ol {
-  padding: 0;
-  margin: 0;
 }
