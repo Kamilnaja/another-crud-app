@@ -1,7 +1,9 @@
 /**
  * Created by Kamil on 2017-03-08.
  */
+
 var app = {
+
     data: [],
     init: function () {
         this.cacheDom();
@@ -15,7 +17,6 @@ var app = {
     },
     renderItems: function () {
         this.getFromLocalStorage();
-        console.log(typeof app.items);
     },
     bindEvents: function () {
         this.addBtn.addEventListener("click", app.addItem);
@@ -34,21 +35,23 @@ var app = {
         var retrievedObject = localStorage.getItem("app.items");
         app.items = JSON.parse(retrievedObject);
     },
-
     displayItem: function () {
         app.getFromLocalStorage();
         var data = "";
+        //todo display using hbs
+        var source = document.getElementById("tpl").innerHTML;
+        var template = Handlebars.compile(source);
+
+        var html = template(app);
+
+        document.getElementById("output").innerHTML = html;
+
         for (var i in app.items) {
             var optionValue =
-                '<select class="itemSelect">' +
-                '<option hidden value="unchosen">Options</option>' +
-                '<option value="edit">Edit</option>' +
-                '<option value="erase">Erase</option>' +
-                '</select></li></span>';
+
             //nadaj kolejno id
             data += '<li class="listItem"><span id=' + i + ">" + app.items[i].name + optionValue;
         }
-        app.list.innerHTML = data;
     },
 
     addItem: function () {
@@ -56,7 +59,7 @@ var app = {
         if (localStorage.getItem("app.items") === null) {
             //zainicjuj
             app.items = [];
-            this.saveToLocalStorage();
+            app.saveToLocalStorage();
         }
         app.getFromLocalStorage();
         var tempInput = app.addInput.value;
@@ -69,7 +72,7 @@ var app = {
             //wyzeruj wartość pola
             app.addInput.value = "";
         } else {
-            alert("wpisz coś");
+            // alert("wpisz coś");
         }
         app.displayItem();
     },

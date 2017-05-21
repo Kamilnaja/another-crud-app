@@ -3,47 +3,42 @@ body {
   text-transform: uppercase;
   background-color: darkcyan;
   color: white;
-  font-family: Calibri;
+  font-family: Calibri, sans-serif;
   font-size: 20px;
-  padding-left: 50px;
 }
 
-/* line 9, ../sass/screen.scss */
-ol {
+/* line 8, ../sass/screen.scss */
+#list {
   list-style-position: inside;
+  border-left: 1px dashed white;
 }
 
-/* line 12, ../sass/screen.scss */
-li {
+/* line 13, ../sass/screen.scss */
+#list li {
   cursor: pointer;
   padding: 10px 20px;
   border-bottom: 1px dashed white;
 }
 
-/* line 17, ../sass/screen.scss */
+/* line 19, ../sass/screen.scss */
 .btnClose {
   float: left;
 }
 
-/* line 21, ../sass/screen.scss */
+/* line 22, ../sass/screen.scss */
 #closeBtn {
   display: inline-block;
   margin-left: 20px;
   cursor: pointer;
 }
 
-/* line 26, ../sass/screen.scss */
-h1 {
-  max-width: 50%;
-}
-
-/* line 29, ../sass/screen.scss */
+/* line 28, ../sass/screen.scss */
 .item {
   padding-left: 10px;
   padding-right: 20px;
 }
 
-/* line 34, ../sass/screen.scss */
+/* line 33, ../sass/screen.scss */
 #editSubmit {
   color: cornflowerblue;
   background-color: white;
@@ -51,27 +46,33 @@ h1 {
   text-transform: uppercase;
 }
 
-/* line 40, ../sass/screen.scss */
+/* line 39, ../sass/screen.scss */
 input {
   color: cornflowerblue;
   padding-left: 5px;
 }
 
-/* line 44, ../sass/screen.scss */
+/* line 43, ../sass/screen.scss */
 .itemSelect {
   color: cornflowerblue;
   float: right;
   display: none;
 }
 
-/* line 49, ../sass/screen.scss */
+/* line 48, ../sass/screen.scss */
 .listItem:hover select,
 .listItem:active select {
   display: inline;
 }
 
-/* line 53, ../sass/screen.scss */
+/* line 52, ../sass/screen.scss */
 .listItem:hover,
 .listItem:active {
   background-color: #007272;
+}
+
+/* line 57, ../sass/screen.scss */
+ol {
+  padding: 0;
+  margin: 0;
 }
