@@ -34,7 +34,7 @@ var app = {
     displayItem: function () {
         app.getFromLocalStorage();
         var data = "";
-        //todo display using hbs
+
         var source = document.getElementById("tpl").innerHTML;
         var template = Handlebars.compile(source);
         var html = template(app);
